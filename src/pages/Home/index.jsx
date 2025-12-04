@@ -1,41 +1,97 @@
-import { useNavigate } from 'react-router-dom'
-import './style.css'
-import Logo from '../../assets/img/Logo.png'
-import Profile from '../../assets/img/Profile.png'
-import { useState } from 'react';
-
+import { useNavigate, Link } from "react-router-dom"
+import "./style.css"
+import Logo from "../../assets/img/Logo.png"
+import Profile from "../../assets/img/Profile.png"
+import { useEffect, useState } from "react"
 
 function Home() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const [senha, setSenha] = useState("")
+  const [email, setEmail] = useState("")
+  const [remember, setRemember] = useState(false)
 
+  // Carregar dados do localStorage se "Relembre-me" estiver ativo
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email")
+    const savedSenha = localStorage.getItem("senha")
+
+    if (savedEmail && savedSenha) {
+      setEmail(savedEmail)
+      setSenha(savedSenha)
+      setRemember(true)
+    }
+  }, [])
+
+  // Função de validação de email
+  function emailValido(email) {
+    return /\S+@\S+\.\S+/.test(email)
+  }
+
+  // Função de login
+  function handleLogin(e) {
+    e.preventDefault()
+
+    if (!emailValido(email)) {
+      alert("Por favor, insira um e-mail válido.")
+      return
+    }
+
+    if (senha.length < 6) {
+      alert("A senha precisa ter pelo menos 6 caracteres.")
+      return
+    }
+
+    if (remember) {
+      localStorage.setItem("email", email)
+      localStorage.setItem("senha", senha)
+      localStorage.setItem("remember", "true")
+    } else {
+      localStorage.removeItem("email")
+      localStorage.removeItem("senha")
+      localStorage.removeItem("remember")
+    }
+
+    alert("Login enviado com sucesso!")
+  }
+
+  // Navegar para página de cadastro
   function irParaCadastro() {
     navigate("/cadastro")
   }
 
-  const [showPassword, setShowPassword] = useState(false);
-
-
-
   return (
     <main>
-      <div className='container'>
+      <div className="container">
 
-        <section className='container-cadastro'>
+        <section className="container-cadastro">
           <h1>Olá, Bem-Vindo!</h1>
-          <p>não tem uma conta?</p>
+          <p>Não tem uma conta?</p>
           <img src={Profile} alt="Icon Perfil" />
-          <button type='button' onClick={irParaCadastro}>Cadastre-se</button>
+
+          <button
+            type="button"
+            onClick={irParaCadastro}
+            className="btn-cadastro"
+          >
+            Cadastre-se
+          </button>
         </section>
 
-        <form className='container-form'>
-
+        <form className="container-form" onSubmit={handleLogin}>
           <img src={Logo} alt="Logo do Colegio Benjamin Constant" />
 
           <div className="form-content">
 
             <div className="form-group">
               <label htmlFor="email_user">E-mail Institucional</label>
-              <input type="email" id="email_user" placeholder="Digite seu e-mail" />
+              <input
+                type="email"
+                id="email_user"
+                placeholder="Digite seu e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
 
             <div className="form-group">
@@ -46,42 +102,60 @@ function Home() {
                   type={showPassword ? "text" : "password"}
                   id="senha_user"
                   placeholder="Digite sua senha"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
                 />
 
-                <button
-                  type="button"
-                  className="toggle-password"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
-                >
-                  {showPassword ? (
-                    <svg width="20" height="20" fill="none" stroke="gray" strokeWidth="2">
-                      <path d="M1 1l18 18" />
-                      <path d="M4 4C2 6 1 10 1 10s4 7 9 7c2 0 4-1 5-3" />
-                      <path d="M10 7a3 3 0 0 1 3 3 3 3 0 0 1-3 3" />
-                    </svg>
-                  ) : (
-                    <svg width="20" height="20" fill="none" stroke="gray" strokeWidth="2">
-                      <path d="M1 10S5 3 10 3s9 7 9 7-4 7-9 7S1 10 1 10z" />
-                      <circle cx="10" cy="10" r="3" />
-                    </svg>
-                  )}
-                </button>
+                {senha.length > 0 && (
+                  <span
+                    className="toggle-text"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Ocultar" : "Mostrar"}
+                  </span>
+                )}
               </div>
             </div>
 
             <div className="form-options">
               <div className="check">
-                <input type="checkbox" id="remember_me" />
-                <label htmlFor="remember_me">Relembre-me</label>
+                <input
+                  type="checkbox"
+                  id="rememberCheck"
+                  checked={remember}
+                  onChange={(e) => {
+                    setRemember(e.target.checked)
+                    if (!e.target.checked) {
+                      setEmail("")
+                      setSenha("")
+                    }
+                  }}
+                />
+                <label htmlFor="rememberCheck">Relembre-me</label>
               </div>
-              <a href="#" className="forgot">Esqueceu a senha?</a>
+              
+             
+              <Link to="/recuperar-senha" className="forgot">
+                Esqueceu a senha?
+              </Link>
             </div>
 
-            <button type='submit'>Entrar</button>
+            <button type="submit" className="btn-login">
+              Entrar
+            </button>
+
+            <div className="divider">
+              <div className="line"></div>
+              <span>Ou</span>
+              <div className="line"></div>
+            </div>
+
+            <button type="button" className="google-btn">
+              <img src="https://www.google.com/favicon.ico" alt="Google" />
+              Entrar com Google
+            </button>
 
           </div>
-
         </form>
 
       </div>

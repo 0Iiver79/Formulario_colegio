@@ -8,7 +8,7 @@
     --text-dark: #000000;
     --radius-lg: 48px;
     --radius-xl: 100px;
-    --font-regular: 'Inter', sans-serif;
+    --font-regular: "Inter", sans-serif;
     --font-weight-regular: 400;
     --font-weight-bold: 700;
 }
@@ -52,6 +52,7 @@ main {
     box-shadow: -10px 10px 40px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* ------------------ LADO DO CADASTRO ------------------ */
 
 .container-cadastro {
     width: 45%;
@@ -63,21 +64,26 @@ main {
     flex-direction: column;
     align-items: center;
     padding-top: 40px;
-    gap: 15px;
+    gap: 10px;
 }
 
 .container-cadastro h1 {
-    font-size: 2rem;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: -4px;
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    margin-bottom: -2px;
 }
 
 .container-cadastro p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 500;
-    opacity: 0.9;
-    margin-top: -4px;
+    opacity: 0.95;
+    margin-top: -6px;
+    letter-spacing: 0.3px;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.20);
 }
+
 
 .container-cadastro img {
     width: 240px;
@@ -97,11 +103,7 @@ main {
     cursor: pointer;
     margin-top: 10px;
     box-shadow: 7px 8px 13px 3px rgba(0, 0, 0, 0.25);
-
-    transition: background-color 0.25s ease,
-        color 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
+    transition: all 0.3s ease;
 }
 
 .container-cadastro button:hover {
@@ -111,35 +113,34 @@ main {
     transform: translateY(-2px);
 }
 
+/* ------------------ FORMULÁRIO ------------------ */
 
 .container-form {
     width: 55%;
-    height: 650px;
+    min-height: 650px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
-
 
 .container-form img {
-    width: 350px;
-    height: 230px;
-    object-fit: cover;
-    display: block;
-
-
+    width: 330px;
+    height: 210px;
+    object-fit: contain;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
-.container-inputs {
+.form-content {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
 
+
+    margin-bottom: 40px;
 }
-
-
 
 .form-group {
     width: 500px;
@@ -152,8 +153,9 @@ main {
     font-size: 15px;
     font-weight: 700;
     margin-bottom: 5px;
-
 }
+
+/* ------------------ INPUTS AJUSTADOS ------------------ */
 
 .form-group input {
     padding: 15px;
@@ -161,8 +163,8 @@ main {
     color: var(--text-dark);
     border: 3px solid rgba(119, 149, 177, 0.75);
     border-radius: 20px;
+    transition: all 0.3s ease;
 }
-
 
 .form-group input::placeholder {
     color: rgba(0, 0, 0, 0.6);
@@ -170,37 +172,41 @@ main {
 
 .form-group input:focus {
     outline: none;
-    box-shadow: none;
+    border-color: var(--bg-form-button);
+    box-shadow: 0 0 6px rgba(6, 169, 224, 0.25);
 }
+
+/* ------------------ SENHA ------------------ */
 
 .password-wrapper {
     position: relative;
     width: 100%;
 }
 
-.password-wrapper .toggle-password {
-    all: unset;
+.password-wrapper input {
+    width: 100%;
+    padding-right: 70px;
+}
+
+.toggle-text {
     position: absolute;
+    right: 15px;
     top: 50%;
-    right: 10px;
     transform: translateY(-50%);
+    font-size: 0.85rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: #065197;
+    opacity: 0.7;
+    user-select: none;
+    transition: all 0.3s ease;
 }
 
-.password-wrapper .toggle-password svg {
-    stroke: #555;
-    width: 20px;
-    height: 20px;
-    transition: stroke 0.2s;
+.toggle-text:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.05);
 }
 
-.password-wrapper .toggle-password:hover svg {
-    stroke: #000;
-}
-
+/* ------------------ OPÇÕES ------------------ */
 
 .form-options {
     width: 490px;
@@ -210,7 +216,6 @@ main {
     align-items: center;
     margin-top: -15px;
 }
-
 
 .check {
     display: flex;
@@ -225,13 +230,13 @@ main {
     cursor: pointer;
 }
 
-
 .forgot {
     font-size: 14px;
     color: #003f7f;
     text-decoration: none;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .forgot:hover {
@@ -239,7 +244,9 @@ main {
     text-decoration: underline;
 }
 
-.container-form button {
+/* ------------------ BOTÃO LOGIN ------------------ */
+
+.btn-login {
     width: 308px;
     height: 53px;
     margin-top: 25px;
@@ -249,19 +256,77 @@ main {
     font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-
-    transition:
-        background-color 0.25s ease-in-out,
-        color 0.25s ease-in-out,
-        transform 0.25s ease-in-out;
+    box-shadow: 7px 8px 13px 3px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
 }
 
-.container-form button:hover {
+.btn-login:hover {
     background-color: #005a88;
-    color: #ffffff;
-    border: 3px solid var(--text-light);
+    color: var(--text-light);
+    border-color: var(--text-light);
     transform: translateY(-2px);
+}
+
+/* ------------------ DIVIDER ------------------ */
+
+.divider {
+    width: 100%;
+    max-width: 500px;
+    margin: 15px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.divider .line {
+    flex: 1;
+    height: 2px;
+    background-color: var(--text-light);
+    border-radius: 10px;
+}
+
+.divider span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+/* ------------------ GOOGLE BUTTON ------------------ */
+
+.google-btn {
+    width: 308px;
+    height: 53px;
+
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    background-color: #ffffff;
+    border: 2px solid #dadce0;
+    border-radius: 20px;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3c4043;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.google-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+.google-btn:hover {
+    border-color: #b5b5b5;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.18);
 }
